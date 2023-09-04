@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="zoNxW6" name="TruePosition" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              headerPath="G:\Dev\Libraries\Juce\UI&#10;G:\Dev\plugin\TruePosition\Source\Util&#10;G:\Dev\Libraries\DigitalSignalProcessing"
+              pluginManufacturer="Gyrus Space" pluginManufacturerCode="0100"
+              companyName="Gyrus Space" pluginFormats="buildAU,buildStandalone,buildVST3"
+              pluginName="True Position" pluginDesc="True Position">
+  <MAINGROUP id="cG97cu" name="TruePosition">
+    <GROUP id="{B2537E94-FBAF-ED36-37E2-E4C199FD6092}" name="Source">
+      <GROUP id="{0C5EC8D6-4B1A-E197-A747-BB8D844757E4}" name="Components">
+        <GROUP id="{8C77BF69-46F7-0BB5-CCC8-1DDC0C715DAD}" name="DigitalSignalProcessing">
+          <GROUP id="{2557176C-AB2D-BE21-B300-A300DF7AD39F}" name="base">
+            <FILE id="KgxoGx" name="Block.cpp" compile="1" resource="0" file="../../Libraries/DigitalSignalProcessing/base/Block.cpp"/>
+            <FILE id="nkjUCM" name="Block.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/base/Block.h"/>
+            <FILE id="phwAha" name="CircularList.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/base/CircularList.h"/>
+            <FILE id="xSJPJC" name="SignalProcessor.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/base/SignalProcessor.cpp"/>
+            <FILE id="ODyuhF" name="SignalProcessor.h" compile="0" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/base/SignalProcessor.h"/>
+          </GROUP>
+          <GROUP id="{FE588C51-9640-D14E-1962-31F9CB098F7F}" name="equalizer">
+            <FILE id="Ym4Kse" name="LowPassFilter.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/equalizer/LowPassFilter.cpp"/>
+            <FILE id="xwI1Vc" name="LowPassFilter.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/equalizer/LowPassFilter.h"/>
+            <FILE id="nmkYCW" name="LowPassFilterBase.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/equalizer/LowPassFilterBase.cpp"/>
+            <FILE id="ezUGVI" name="LowPassFilterBase.h" compile="0" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/equalizer/LowPassFilterBase.h"/>
+          </GROUP>
+          <GROUP id="{71EDAB86-EAD5-C8E7-B460-FB9E41117F0C}" name="functional">
+            <FILE id="uPC1NN" name="ThreadPool.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/functional/ThreadPool.h"/>
+          </GROUP>
+          <GROUP id="{9AF5E634-7BE5-153F-A9BC-8AD301C1C262}" name="simpleProcessor">
+            <FILE id="GZ4WDY" name="Delay.cpp" compile="1" resource="0" file="../../Libraries/DigitalSignalProcessing/simpleProcessor/Delay.cpp"/>
+            <FILE id="uoHpDi" name="Delay.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/simpleProcessor/Delay.h"/>
+            <FILE id="oq4tx7" name="Gain.cpp" compile="1" resource="0" file="../../Libraries/DigitalSignalProcessing/simpleProcessor/Gain.cpp"/>
+            <FILE id="ULxVBc" name="Gain.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/simpleProcessor/Gain.h"/>
+          </GROUP>
+          <GROUP id="{AF5F15F4-398A-E40F-99A1-AD3638672A34}" name="spatial">
+            <FILE id="mEkBsI" name="Positioner.cpp" compile="1" resource="0" file="../../Libraries/DigitalSignalProcessing/spatial/Positioner.cpp"/>
+            <FILE id="qtMqu7" name="Positioner.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/spatial/Positioner.h"/>
+            <FILE id="sHQxoL" name="PositionSimulator.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/spatial/PositionSimulator.cpp"/>
+            <FILE id="iuxv0Y" name="PositionSimulator.h" compile="0" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/spatial/PositionSimulator.h"/>
+            <FILE id="esPAgR" name="RoomSimulator.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/spatial/RoomSimulator.cpp"/>
+            <FILE id="xTKag1" name="RoomSimulator.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/spatial/RoomSimulator.h"/>
+          </GROUP>
+          <GROUP id="{F606CDCD-C7C1-2BAD-5C5F-7D783496D172}" name="util">
+            <FILE id="l8tTou" name="Coordinate.cpp" compile="1" resource="0" file="../../Libraries/DigitalSignalProcessing/util/Coordinate.cpp"/>
+            <FILE id="yU6fRI" name="Coordinate.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/util/Coordinate.h"/>
+            <FILE id="JLdUHW" name="IPropertyChangeListener.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/util/IPropertyChangeListener.cpp"/>
+            <FILE id="vmJQXA" name="IPropertyChangeListener.h" compile="0" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/util/IPropertyChangeListener.h"/>
+            <FILE id="uSToAn" name="Util.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/util/Util.h"/>
+          </GROUP>
+          <FILE id="SYh7fy" name="gyrus_space_dsp.h" compile="0" resource="0"
+                file="../../Libraries/DigitalSignalProcessing/gyrus_space_dsp.h"/>
+          <FILE id="H0cnVS" name="README.md" compile="0" resource="1" file="../../Libraries/DigitalSignalProcessing/README.md"/>
+        </GROUP>
+        <GROUP id="{FA340DC2-D0EE-696A-9717-12FDEDAF6CEC}" name="UI">
+          <FILE id="fglRCt" name="LookAndFeelOfTruePosition.cpp" compile="1"
+                resource="0" file="../../Libraries/Juce/UI/LookAndFeelOfTruePosition.cpp"/>
+          <FILE id="YJ5wcC" name="LookAndFeelOfTruePosition.h" compile="0" resource="0"
+                file="../../Libraries/Juce/UI/LookAndFeelOfTruePosition.h"/>
+          <FILE id="Mbrw4r" name="colorTheme.cpp" compile="1" resource="0" file="Source/Util/colorTheme.cpp"/>
+          <FILE id="klh5oE" name="colorTheme.h" compile="0" resource="0" file="Source/Util/colorTheme.h"/>
+          <GROUP id="{6182F514-A962-6F6E-ADDE-1627ABEF1AD0}" name="Button">
+            <FILE id="GCTqdf" name="ToggleButtonText.cpp" compile="1" resource="0"
+                  file="../../Libraries/Juce/UI/Button/ToggleButtonText.cpp"/>
+            <FILE id="A23kKV" name="ToggleButtonText.h" compile="0" resource="0"
+                  file="../../Libraries/Juce/UI/Button/ToggleButtonText.h"/>
+          </GROUP>
+          <GROUP id="{47A0563F-843D-1F54-DDC6-AACC2B5AD203}" name="Slider">
+            <GROUP id="{EA40F404-997E-3F7A-0457-0429BDAD77EE}" name="OneDimension">
+              <FILE id="lHtIg6" name="CleanSlider.cpp" compile="1" resource="0" file="../../Libraries/Juce/UI/Slider/OneDimension/CleanSlider.cpp"/>
+              <FILE id="eQQUyU" name="CleanSlider.h" compile="0" resource="0" file="../../Libraries/Juce/UI/Slider/OneDimension/CleanSlider.h"/>
+            </GROUP>
+            <FILE id="Cci2zK" name="README.md" compile="0" resource="1" file="../../Libraries/Juce/UI/Slider/README.md"/>
+            <FILE id="JyVJ6e" name="XyzPad.cpp" compile="1" resource="0" file="../../Libraries/Juce/UI/Slider/XyzPad.cpp"/>
+            <FILE id="HKjD1q" name="XyzPad.h" compile="0" resource="0" file="../../Libraries/Juce/UI/Slider/XyzPad.h"/>
+          </GROUP>
+        </GROUP>
+      </GROUP>
+      <FILE id="AQFjhl" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="F28tB1" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="rJ0GE7" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="eq9vnB" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="TruePosition"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="TruePosition"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+</JUCERPROJECT>
