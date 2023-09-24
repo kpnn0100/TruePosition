@@ -62,6 +62,10 @@
           <FILE id="H0cnVS" name="README.md" compile="0" resource="1" file="../../Libraries/DigitalSignalProcessing/README.md"/>
         </GROUP>
         <GROUP id="{FA340DC2-D0EE-696A-9717-12FDEDAF6CEC}" name="UI">
+          <GROUP id="{7618E045-2367-71D3-8769-8F0803BB6449}" name="Icon">
+            <FILE id="cx8qDc" name="BoxIcon.cpp" compile="1" resource="0" file="../../Libraries/Juce/UI/Icon/BoxIcon.cpp"/>
+            <FILE id="Llr7EX" name="BoxIcon.h" compile="0" resource="0" file="../../Libraries/Juce/UI/Icon/BoxIcon.h"/>
+          </GROUP>
           <FILE id="fglRCt" name="LookAndFeelOfTruePosition.cpp" compile="1"
                 resource="0" file="../../Libraries/Juce/UI/LookAndFeelOfTruePosition.cpp"/>
           <FILE id="YJ5wcC" name="LookAndFeelOfTruePosition.h" compile="0" resource="0"

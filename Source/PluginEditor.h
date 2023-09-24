@@ -9,10 +9,12 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include <sstream>
 #include "PluginProcessor.h"
 #include "Slider/XyzPad.h"
 #include "Button/ToggleButtonText.h"
 #include "Slider/OneDimension/CleanSlider.h"
+#include "Icon/BoxIcon.h"
 #include "LookAndFeelOfTruePosition.h"
 #include "colorTheme.h"
 using namespace juce;
@@ -37,14 +39,20 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
+    TooltipWindow helper;
     TruePositionAudioProcessor& audioProcessor;
     LookAndFeelOfTruePosition mLookAndFeel;
+    Label mSizeTextBox[3];
+    Label mMixName[3];
+    BoxIcon mBoxIcon[3][2];
+    Component mWetAndDrySection;
+    Component mSizeSliderSection;
     XyzPad spaceSlider;
     Slider dimesionSliderList[3];
     Slider sizeSliderList[3];
-    CleanSlider wetSlider;
+    Slider wetSlider;
     Slider drySlider;
-    ToggleButtonText toggleButtonText;
+    ToggleButtonText keepGainButton;
     virtual void sliderValueChanged(Slider* slider) override;
     virtual void buttonStateChanged(Button* button) override;
     virtual void buttonClicked(Button*);
