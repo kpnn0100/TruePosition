@@ -15,7 +15,7 @@
 /**
 */
 using namespace juce;
-class TruePositionAudioProcessor  : public juce::AudioProcessor
+class TruePositionAudioProcessor  : public juce::AudioProcessor, public AudioProcessorValueTreeState::Listener
                             #if JucePlugin_Enable_ARA
                              , public juce::AudioProcessorARAExtension
                             #endif
@@ -61,13 +61,19 @@ public:
     Coordinate mSource;
     Coordinate mDestination;
     Coordinate mRoomSize;
-    Slider* mWetSlider = nullptr;
-    Slider* mDrySlider = nullptr;
+    double mReverbMix = 0.0;
+    double mDecay = 100.0;
+    float mDryMix = 0;
+    float mWetMix = 0;
     bool mKeepGain;
     float SPEED_OF_SOUND = 343.0; // m/s
+    AudioProcessorValueTreeState& getParameterTree();
 private:
     //==============================================================================
+    void forceParameterSync();
+    AudioProcessorValueTreeState parameters;
     ThreadPool mThreadPool;
     RoomSimulation mFilter;
+    void parameterChanged(const String& parameterID, float newValue) override;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TruePositionAudioProcessor)
 };

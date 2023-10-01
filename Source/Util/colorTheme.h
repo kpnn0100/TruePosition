@@ -17,6 +17,6 @@ public:
     static Colour backgroundColor;
     static Colour whiteColor;
     static Colour grayColorDark;
-    static Colour mainColor[3];
+    static Colour mainColor[4];
 
 };

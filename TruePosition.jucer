@@ -14,6 +14,9 @@
             <FILE id="KgxoGx" name="Block.cpp" compile="1" resource="0" file="../../Libraries/DigitalSignalProcessing/base/Block.cpp"/>
             <FILE id="nkjUCM" name="Block.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/base/Block.h"/>
             <FILE id="phwAha" name="CircularList.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/base/CircularList.h"/>
+            <FILE id="Da85KS" name="FeedbackBlock.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/base/FeedbackBlock.cpp"/>
+            <FILE id="Txvj9E" name="FeedbackBlock.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/base/FeedbackBlock.h"/>
             <FILE id="xSJPJC" name="SignalProcessor.cpp" compile="1" resource="0"
                   file="../../Libraries/DigitalSignalProcessing/base/SignalProcessor.cpp"/>
             <FILE id="ODyuhF" name="SignalProcessor.h" compile="0" resource="0"
@@ -30,6 +33,10 @@
           </GROUP>
           <GROUP id="{71EDAB86-EAD5-C8E7-B460-FB9E41117F0C}" name="functional">
             <FILE id="uPC1NN" name="ThreadPool.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/functional/ThreadPool.h"/>
+          </GROUP>
+          <GROUP id="{22891FEF-43C0-126D-A410-0905C10A4430}" name="reverb">
+            <FILE id="vfcsWP" name="Reverb.cpp" compile="1" resource="0" file="../../Libraries/DigitalSignalProcessing/reverb/Reverb.cpp"/>
+            <FILE id="CFuOHN" name="Reverb.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/reverb/Reverb.h"/>
           </GROUP>
           <GROUP id="{9AF5E634-7BE5-153F-A9BC-8AD301C1C262}" name="simpleProcessor">
             <FILE id="GZ4WDY" name="Delay.cpp" compile="1" resource="0" file="../../Libraries/DigitalSignalProcessing/simpleProcessor/Delay.cpp"/>
@@ -62,6 +69,12 @@
           <FILE id="H0cnVS" name="README.md" compile="0" resource="1" file="../../Libraries/DigitalSignalProcessing/README.md"/>
         </GROUP>
         <GROUP id="{FA340DC2-D0EE-696A-9717-12FDEDAF6CEC}" name="UI">
+          <GROUP id="{9D0556F1-0E2F-8074-6B73-F4659EED2D74}" name="Shape">
+            <FILE id="XtfJG8" name="RectangleComponent.cpp" compile="1" resource="0"
+                  file="../../Libraries/Juce/UI/Shape/RectangleComponent.cpp"/>
+            <FILE id="UffVSa" name="RectangleComponent.h" compile="0" resource="0"
+                  file="../../Libraries/Juce/UI/Shape/RectangleComponent.h"/>
+          </GROUP>
           <GROUP id="{7618E045-2367-71D3-8769-8F0803BB6449}" name="Icon">
             <FILE id="cx8qDc" name="BoxIcon.cpp" compile="1" resource="0" file="../../Libraries/Juce/UI/Icon/BoxIcon.cpp"/>
             <FILE id="Llr7EX" name="BoxIcon.h" compile="0" resource="0" file="../../Libraries/Juce/UI/Icon/BoxIcon.h"/>
