@@ -104,10 +104,10 @@ TruePositionAudioProcessorEditor::TruePositionAudioProcessorEditor(TruePositionA
         mSizeTextBox[i].setColour(Label::textColourId, ColorTheme::mainColor[i].brighter(0.2));
 
         sizeSliderList[i].addListener(this);
-        dimesionSliderList[i].setRange(Range<double>(-1.0, 1.0), 0.001);
+        //dimesionSliderList[i].setRange(Range<double>(-1.0, 1.0), 0.001);
         spaceSlider.registerSlider(&dimesionSliderList[i],i);
         sizeSliderList[i].setSize(sliderWidth, sliderHeight);
-        sizeSliderList[i].setRange(1.0f,40.0f);
+        //sizeSliderList[i].setRange(1.0f,40.0f);
         sizeSliderList[i].setCentrePosition(mSizeSliderSection.getWidth() / 2,
             boxSize.y + sliderHeight/2 + gap + i * sliderHeight + i * boxSize.y + gap * i*2);
         sizeSliderList[i].setColour(Slider::trackColourId,ColorTheme::mainColor[i].darker(0.2));

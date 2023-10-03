@@ -319,11 +319,13 @@ void TruePositionAudioProcessor::parameterChanged(const String& parameterID, flo
         int newIndex = parameterID[4] - 'X';
         mRoomSize.set(newIndex, newValue);
         mDestination.set(newIndex, newValue / 2);
+        mSource.set(newIndex, (mSourceNormalize.get(newIndex) + 1.0) * newValue / 2);
     }
     if (parameterID.containsIgnoreCase("pos"))
     {
         int idToSet = parameterID[3] - 'X';
         mSource.set(idToSet, (newValue+1.0) * mRoomSize.get(idToSet)/2);
+        mSourceNormalize.set(idToSet, newValue);
     }
     if (parameterID.equalsIgnoreCase("dry"))
     {
