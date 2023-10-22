@@ -62,6 +62,8 @@ public:
     Coordinate mDestination;
     Coordinate mRoomSize;
     Coordinate mSourceNormalize;
+    double mLowCut = 0.0;
+    double mHighCut = 0.0;
     double mReverbMix = 0.0;
     double mDecay = 100.0;
     float mDryMix = 0;

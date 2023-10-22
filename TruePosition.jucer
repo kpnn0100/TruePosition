@@ -23,6 +23,10 @@
                   file="../../Libraries/DigitalSignalProcessing/base/SignalProcessor.h"/>
           </GROUP>
           <GROUP id="{FE588C51-9640-D14E-1962-31F9CB098F7F}" name="equalizer">
+            <FILE id="yBXMkx" name="HighPassFilter.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/equalizer/HighPassFilter.cpp"/>
+            <FILE id="E1CBKW" name="HighPassFilter.h" compile="0" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/equalizer/HighPassFilter.h"/>
             <FILE id="Ym4Kse" name="LowPassFilter.cpp" compile="1" resource="0"
                   file="../../Libraries/DigitalSignalProcessing/equalizer/LowPassFilter.cpp"/>
             <FILE id="xwI1Vc" name="LowPassFilter.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/equalizer/LowPassFilter.h"/>
@@ -32,6 +36,10 @@
                   file="../../Libraries/DigitalSignalProcessing/equalizer/LowPassFilterBase.h"/>
           </GROUP>
           <GROUP id="{71EDAB86-EAD5-C8E7-B460-FB9E41117F0C}" name="functional">
+            <FILE id="RmtERR" name="ProcessorRepeater.cpp" compile="1" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/functional/ProcessorRepeater.cpp"/>
+            <FILE id="crHVgR" name="ProcessorRepeater.h" compile="0" resource="0"
+                  file="../../Libraries/DigitalSignalProcessing/functional/ProcessorRepeater.h"/>
             <FILE id="uPC1NN" name="ThreadPool.h" compile="0" resource="0" file="../../Libraries/DigitalSignalProcessing/functional/ThreadPool.h"/>
           </GROUP>
           <GROUP id="{22891FEF-43C0-126D-A410-0905C10A4430}" name="reverb">
@@ -70,6 +78,9 @@
         </GROUP>
         <GROUP id="{FA340DC2-D0EE-696A-9717-12FDEDAF6CEC}" name="UI">
           <GROUP id="{9D0556F1-0E2F-8074-6B73-F4659EED2D74}" name="Shape">
+            <FILE id="S3EhlT" name="LineComponent.cpp" compile="1" resource="0"
+                  file="../../Libraries/Juce/UI/Shape/LineComponent.cpp"/>
+            <FILE id="lqmnHf" name="LineComponent.h" compile="0" resource="0" file="../../Libraries/Juce/UI/Shape/LineComponent.h"/>
             <FILE id="XtfJG8" name="RectangleComponent.cpp" compile="1" resource="0"
                   file="../../Libraries/Juce/UI/Shape/RectangleComponent.cpp"/>
             <FILE id="UffVSa" name="RectangleComponent.h" compile="0" resource="0"

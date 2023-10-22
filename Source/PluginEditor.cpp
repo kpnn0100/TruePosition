@@ -26,15 +26,17 @@ TruePositionAudioProcessorEditor::TruePositionAudioProcessorEditor(TruePositionA
     dryAttachment(*parameters.getParameter("dry"), drySlider),
     reverbAttachment(*parameters.getParameter("reverb"), reverbSlider),
     decayAttachment(*parameters.getParameter("decay"), decaySlider),
+    lowcutAttachment(*parameters.getParameter("lowCut"), lowcutSlider),
+    highcutAttachment(*parameters.getParameter("highCut"), highcutSlider),
     keepGainAttachment(*parameters.getParameter("keepGain"), keepGainButton)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize(800, 340);
+    setSize(1000, 340);
     addAndMakeVisible(helper);
     Point<int> topLeftOfEverything(5, 15);
     Point<int> xyPadSize(308, 308);
-    int gap = 15;
+    
     int sliderWidth = getWidth() - topLeftOfEverything.getX() - xyPadSize.getX() - gap * 2;
     int sliderHeight = 25;
 
@@ -58,11 +60,23 @@ TruePositionAudioProcessorEditor::TruePositionAudioProcessorEditor(TruePositionA
 
     float mixHeight = getHeight() - mSizeSliderSection.getBottom() - gap*2.5;
     float rotaryHeight = mixHeight*4/5;
-    mWetAndDrySection.setSize(mSizeSliderSection.getBounds().getWidth(), mixHeight);
-    mWetAndDrySection.setCentrePosition(mSizeSliderSection.getBounds().getCentre().getX(), mSizeSliderSection.getBottom() + gap*3/2 + mWetAndDrySection.getHeight() / 2);
+    mWetAndDrySection.setSize(rotaryHeight*2 + gap*3, mixHeight);
+    mWetAndDrySection.setCentrePosition(mSizeSliderSection.getBounds().getTopLeft().x + mWetAndDrySection.getWidth()/2
+        , mSizeSliderSection.getBottom() + gap * 3 / 2 + mWetAndDrySection.getHeight() / 2);
+    mReverbSection.setSize(rotaryHeight * 3 + gap * 3, mWetAndDrySection.getHeight());
+    mReverbSection.setTopLeftPosition(mWetAndDrySection.getBounds().getTopRight() + Point<int>(gap * 3 / 2, 0.0));
+    mLowAndHighCutSection.setSize(sliderWidth - mWetAndDrySection.getWidth() - mReverbSection.getWidth()-gap*3, mixHeight);
+    mLowAndHighCutSection.setTopLeftPosition(mReverbSection.getBounds().getTopRight() + Point<int>(gap * 3 / 2, 0.0));
+    
     addAndMakeVisible(backgroundForSizeSlider);
     addAndMakeVisible(backgroundForWetSection);
     addAndMakeVisible(backgroundOfPad);
+    addAndMakeVisible(backgroundForReverb);
+    addAndMakeVisible(backgroundForLHCut);
+
+    backgroundForLHCut.setBounds(mLowAndHighCutSection.getBounds().expanded(gap / 2));
+    backgroundForLHCut.setColour(RectangleComponent::backgroundColourId, componentBackgroundColor);
+    backgroundForLHCut.setCornerSize(cornerSize);
 
     backgroundOfPad.setBounds(spaceSlider.getBounds().withSizeKeepingCentre(spaceSlider.getWidth()+gap, spaceSlider.getHeight()+2*gap));
     backgroundOfPad.setColour(RectangleComponent::backgroundColourId, componentBackgroundColor);
@@ -72,9 +86,13 @@ TruePositionAudioProcessorEditor::TruePositionAudioProcessorEditor(TruePositionA
     backgroundForSizeSlider.setColour(RectangleComponent::backgroundColourId, componentBackgroundColor);
     backgroundForSizeSlider.setCornerSize(cornerSize);
 
-    backgroundForWetSection.setBounds(mWetAndDrySection.getBounds().withSizeKeepingCentre(backgroundForSizeSlider.getWidth(), mWetAndDrySection.getHeight() + gap));
+    backgroundForWetSection.setBounds(mWetAndDrySection.getBounds().expanded(gap/2));
     backgroundForWetSection.setColour(RectangleComponent::backgroundColourId, componentBackgroundColor);
     backgroundForWetSection.setCornerSize(cornerSize);
+
+    backgroundForReverb.setBounds(mReverbSection.getBounds().expanded(gap / 2));
+    backgroundForReverb.setColour(RectangleComponent::backgroundColourId, componentBackgroundColor);
+    backgroundForReverb.setCornerSize(cornerSize);
     for (int i = 0; i < 3; i++)
     {
         mBoxIcon[i][0].setSize(sliderHeight, sliderHeight);
@@ -160,7 +178,7 @@ TruePositionAudioProcessorEditor::TruePositionAudioProcessorEditor(TruePositionA
 
     reverbSlider.setSize(rotaryHeight, rotaryHeight);
     reverbSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    reverbSlider.setTopLeftPosition(wetSlider.getRight() + gap, 0.0);
+    reverbSlider.setTopLeftPosition(0.0, 0.0);
     reverbSlider.setLookAndFeel(&mLookAndFeel);
     reverbSlider.setNumDecimalPlacesToDisplay(2);
     reverbSlider.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 50);
@@ -174,7 +192,7 @@ TruePositionAudioProcessorEditor::TruePositionAudioProcessorEditor(TruePositionA
     mMixName[2].setCentrePosition(reverbSlider.getPosition() + Point<int>(reverbSlider.getWidth() / 2, reverbSlider.getHeight() + mMixName[2].getHeight() / 2));
     mMixName[2].setFont(mMixName[2].getFont().boldened());
 
-    mWetAndDrySection.addAndMakeVisible(mMixName[2]);
+
 
     decaySlider.setSize(rotaryHeight, rotaryHeight);
     decaySlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
@@ -185,6 +203,7 @@ TruePositionAudioProcessorEditor::TruePositionAudioProcessorEditor(TruePositionA
     decaySlider.setColour(Slider::thumbColourId, ColorTheme::mainColor[3]);
     decaySlider.setColour(Slider::rotarySliderOutlineColourId, ColorTheme::backgroundColor.brighter(0.2));
     decaySlider.setColour(Slider::rotarySliderFillColourId, ColorTheme::whiteColor);
+    decaySlider.addListener(this);
 
     mDecayName.setText("decay", NotificationType::dontSendNotification);
     mDecayName.setJustificationType(Justification::centred);
@@ -192,31 +211,86 @@ TruePositionAudioProcessorEditor::TruePositionAudioProcessorEditor(TruePositionA
     mDecayName.setCentrePosition(decaySlider.getPosition() + Point<int>(decaySlider.getWidth() / 2, decaySlider.getHeight() + mDecayName.getHeight() / 2));
     mDecayName.setFont(mDecayName.getFont().boldened());
 
-    mWetAndDrySection.addAndMakeVisible(mDecayName);
 
-    keepGainButton.setSize(keepGainWidth, 50);
+
+    mDecayValueShow.setFont(mDecayValueShow.getFont().boldened());
+    mDecayValueShow.setSize(keepGainWidth, 20);
+    mDecayValueShow.setCentrePosition(decaySlider.getRight() + gap + mDecayValueShow.getWidth() / 2, decaySlider.getBounds().getTopRight().y + mDecayValueShow.getHeight()/2);
+    mDecayValueShow.setJustificationType(Justification::centred);
+    keepGainButton.setSize(keepGainWidth, 60);
     keepGainButton.setTitle("Keep gain");
     keepGainButton.setTooltip("Make gain independent of distance");
 
-    keepGainButton.setCentrePosition(decaySlider.getRight() + gap + keepGainButton.getWidth() / 2, decaySlider.getHeight() / 2);
+    keepGainButton.setCentrePosition(mDecayValueShow.getBounds().getCentre() + Point<int>(0.0, keepGainButton.getHeight()/2 + gap));
 
-    mWetAndDrySection.addAndMakeVisible(keepGainButton);
-    
+    Point <float> start = mDecayValueShow.getBounds().getCentre().toFloat() - Point<float>(mDecayValueShow.getWidth() / 2 - gap / 2, 0.0);
+    Point<float> next = start - Point<float>(gap, 0.0);
+    Point<float> finalPoint = next + Point<float>(-gap, gap);
+    lineForDecay[0].setLine(Line<float>(start, next));
+    lineForDecay[1].setLine(Line<float>(next, finalPoint).withShortenedEnd(gap/3));
+     
     drySlider.addListener(this);
     wetSlider.addListener(this);
+
+    lowcutSlider.setSkewFactor(0.5);
+    lowcutSlider.setSize(rotaryHeight, rotaryHeight);
+    lowcutSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    lowcutSlider.setTopLeftPosition(0.0,0.0);
+    lowcutSlider.setLookAndFeel(&mLookAndFeel);
+    lowcutSlider.setNumDecimalPlacesToDisplay(2);
+    lowcutSlider.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 50);
+    lowcutSlider.setColour(Slider::thumbColourId, ColorTheme::mainColor[3]);
+    lowcutSlider.setColour(Slider::rotarySliderOutlineColourId, ColorTheme::backgroundColor.brighter(0.2));
+    lowcutSlider.setColour(Slider::rotarySliderFillColourId, ColorTheme::whiteColor);
+
+    mLowcutName.setText("Low cut", NotificationType::dontSendNotification);
+    mLowcutName.setJustificationType(Justification::centred);
+    mLowcutName.setSize(boxSize.x, boxSize.y);
+    mLowcutName.setCentrePosition(lowcutSlider.getPosition() + Point<int>(lowcutSlider.getWidth() / 2, lowcutSlider.getHeight() + mLowcutName.getHeight() / 2));
+    mLowcutName.setFont(mHighcutName.getFont().boldened());
+    mLowAndHighCutSection.addAndMakeVisible(mLowcutName);
+
+    highcutSlider.setSkewFactor(-0.5);
+    highcutSlider.setSize(rotaryHeight, rotaryHeight);
+    highcutSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    highcutSlider.setTopLeftPosition(lowcutSlider.getBounds().getTopRight() + Point<int>(gap,0.0));
+    highcutSlider.setLookAndFeel(&mLookAndFeel);
+    highcutSlider.setNumDecimalPlacesToDisplay(2);
+    highcutSlider.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 50);
+    highcutSlider.setColour(Slider::thumbColourId, ColorTheme::mainColor[3]);
+    highcutSlider.setColour(Slider::rotarySliderOutlineColourId, ColorTheme::backgroundColor.brighter(0.2));
+    highcutSlider.setColour(Slider::rotarySliderFillColourId, ColorTheme::whiteColor);
+
+    mHighcutName.setText("High cut", NotificationType::dontSendNotification);
+    mHighcutName.setJustificationType(Justification::centred);
+    mHighcutName.setSize(boxSize.x, boxSize.y);
+    mHighcutName.setCentrePosition(highcutSlider.getPosition() + Point<int>(highcutSlider.getWidth() / 2, highcutSlider.getHeight() + mHighcutName.getHeight() / 2));
+    mHighcutName.setFont(mHighcutName.getFont().boldened());
+    mLowAndHighCutSection.addAndMakeVisible(mHighcutName);
 
     updatePositioner();
     addAndMakeVisible(mSizeSliderSection);
     mWetAndDrySection.addAndMakeVisible(wetSlider);
     mWetAndDrySection.addAndMakeVisible(drySlider);
-    mWetAndDrySection.addAndMakeVisible(decaySlider);
-    mWetAndDrySection.addAndMakeVisible(reverbSlider);
+    mReverbSection.addAndMakeVisible(decaySlider);
+    mReverbSection.addAndMakeVisible(reverbSlider);
+    mReverbSection.addAndMakeVisible(lineForDecay[0]);
+    mReverbSection.addAndMakeVisible(lineForDecay[1]);
+    mReverbSection.addAndMakeVisible(mDecayName);
+    mReverbSection.addAndMakeVisible(mDecayValueShow);
+    mReverbSection.addAndMakeVisible(mMixName[2]);
+    mReverbSection.addAndMakeVisible(keepGainButton);
+    mLowAndHighCutSection.addAndMakeVisible(lowcutSlider);
+    mLowAndHighCutSection.addAndMakeVisible(highcutSlider);
+    addAndMakeVisible(&mReverbSection);
     addAndMakeVisible(mWetAndDrySection);
     addAndMakeVisible(spaceSlider);
+    addAndMakeVisible(mLowAndHighCutSection);
     wetAttachment.sendInitialUpdate();
     dryAttachment.sendInitialUpdate();
     decayAttachment.sendInitialUpdate();
     reverbAttachment.sendInitialUpdate();
+    sliderValueChanged(&decaySlider);
     for (int i = 0; i < 3; i++)
     {
         juce::String newValue(sizeSliderList[i].getValue(), 2);
@@ -238,6 +312,7 @@ void TruePositionAudioProcessorEditor::paint (juce::Graphics& g)
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
     //g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::right, 1);
+
 }
 
 void TruePositionAudioProcessorEditor::resized()
@@ -271,6 +346,14 @@ void TruePositionAudioProcessorEditor::sliderValueChanged(Slider* slider)
         juce::String newValue(slider->getValue(), 2);
         newValue += "m";
         mSizeTextBox[whichSizeSlider].setText(newValue, NotificationType::dontSendNotification);
+    }
+    if (&decaySlider == slider)
+    {
+        std::stringstream ss;
+        ss << std::fixed << (int) slider->getValue();
+        ss << "ms";
+        std::string result = ss.str();
+        mDecayValueShow.setText(result,NotificationType::dontSendNotification);
     }
     updatePositioner();
 }

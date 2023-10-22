@@ -30,7 +30,9 @@ TruePositionAudioProcessor::TruePositionAudioProcessor()
         std::make_unique<AudioParameterFloat>("dry", "Dry mix", NormalisableRange<float>{0.f, 1.f, 0.001f}, 1.0f),
         std::make_unique<AudioParameterFloat>("wet", "Wet mix", NormalisableRange<float>{0.f, 1.f, 0.001f}, 0.5f),
         std::make_unique<AudioParameterFloat>("reverb", "Reverb mix", NormalisableRange<float>{0.f, 1.f, 0.001f}, 0.5f),
-        std::make_unique<AudioParameterFloat>("decay", "Reverb Decay", NormalisableRange<float>{1000.f, 6000.f, 0.01f}, 1000.f),
+        std::make_unique<AudioParameterFloat>("decay", "Reverb Decay", NormalisableRange<float>{1000.f, 6000.f, 1.0f}, 1000.f),
+        std::make_unique<AudioParameterFloat>("lowCut", "Low cut", NormalisableRange<float>{20.f, 10000.f, 1.0f}, 200.0f),
+        std::make_unique<AudioParameterFloat>("highCut", "High cut", NormalisableRange<float>{10000.f, 20000.0f, 1.0f}, 19000.f),
         std::make_unique<AudioParameterBool>("keepGain", "Keep gain",false)
         })
 #endif
@@ -47,6 +49,10 @@ TruePositionAudioProcessor::TruePositionAudioProcessor()
     parameters.addParameterListener("wet", this);
     parameters.addParameterListener("reverb", this);
     parameters.addParameterListener("decay", this);
+
+    parameters.addParameterListener("highCut", this);
+    parameters.addParameterListener("lowCut", this);
+
     parameters.addParameterListener("keepGain", this);
     forceParameterSync();
 }
@@ -65,6 +71,10 @@ TruePositionAudioProcessor::~TruePositionAudioProcessor()
     parameters.removeParameterListener("wet", this);
     parameters.removeParameterListener("reverb", this);
     parameters.removeParameterListener("decay", this);
+
+    parameters.removeParameterListener("lowCut", this);
+    parameters.removeParameterListener("highCut", this);
+
     parameters.removeParameterListener("keepGain", this);
 }
 
@@ -284,6 +294,8 @@ void TruePositionAudioProcessor::updateFilter()
     mFilter.setWetMix(mWetMix);
     mFilter.setDecayInMs(mDecay);
     mFilter.setReverbWet(mReverbMix);
+    mFilter.setHighCutFrequency(mHighCut);
+    mFilter.setLowCutFrequency(mLowCut);
 }
 
 AudioProcessorValueTreeState& TruePositionAudioProcessor::getParameterTree()
@@ -293,17 +305,21 @@ AudioProcessorValueTreeState& TruePositionAudioProcessor::getParameterTree()
 
 void TruePositionAudioProcessor::forceParameterSync()
 {
-    mDryMix = parameters.getParameter("dry")->getValue();
-    mWetMix = parameters.getParameter("wet")->getValue();
+    mDryMix = parameters.getParameter("dry")->convertFrom0to1(parameters.getParameter("dry")->getValue());
+    mWetMix = parameters.getParameter("wet")->convertFrom0to1(parameters.getParameter("wet")->getValue());
+    mLowCut = parameters.getParameter("lowCut")->convertFrom0to1(parameters.getParameter("lowCut")->getValue());
+    mHighCut = parameters.getParameter("highCut")->convertFrom0to1(parameters.getParameter("highCut")->getValue());
     for (int i = 0; i < 3; i++)
     {
         String name = std::string(1,'X' + i);
         String parameterString = "size" + name;
-        float roomValue = parameters.getParameter(parameterString)->getValue();
+        float roomValue = parameters.getParameter(parameterString)->convertFrom0to1(parameters.getParameter(parameterString)->getValue());
         mRoomSize.set(i, roomValue);
         parameterString = "pos"+ name;
-        float sourceValue = parameters.getParameter(parameterString)->getValue();
-        mSource.set(i, sourceValue);
+        float sourceValue = parameters.getParameter(parameterString)->convertFrom0to1(parameters.getParameter(parameterString)->getValue());
+        mSourceNormalize.set(i, sourceValue);
+        mDestination.set(i, roomValue / 2);
+        mSource.set(i, (mSourceNormalize.get(i) + 1.0) * roomValue / 2);
     }
     float keep = parameters.getParameter("keepGain")->getValue();
     if (keep < 0.5f)
@@ -342,6 +358,14 @@ void TruePositionAudioProcessor::parameterChanged(const String& parameterID, flo
     if (parameterID.equalsIgnoreCase("decay"))
     {
         mDecay = newValue;
+    }
+    if (parameterID.equalsIgnoreCase("lowCut"))
+    {
+        mLowCut = newValue;
+    }
+    if (parameterID.equalsIgnoreCase("highCut"))
+    {
+        mHighCut = newValue;
     }
     if (parameterID.equalsIgnoreCase("keepGain"))
     {
