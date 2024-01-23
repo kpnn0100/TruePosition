@@ -2,7 +2,7 @@
 
 Welcome to True Position, an open-source project designed to simulate sound behavior in a given space using the Digital Signal Processing Library. To integrate this functionality, you'll need to include the [Digital Signal Processing Library](https://github.com/kpnn0100/DigitalSignalProcessing) in your project.
 
-Demo: [Demo on Linkedin](https://www.linkedin.com/feed/update/urn:li:activity:7136769686175711232/)
+[Demo on Linkedin](https://www.linkedin.com/feed/update/urn:li:activity:7136769686175711232/)
 
 ## Functionality
 
